@@ -1,5 +1,5 @@
 {
-  "name": "@chainlink-solana-fork/gauntlet-serum-multisig",
+  "name": "@chainlink-sol-fork/gauntlet-serum-multisig",
   "version": "0.0.1",
   "description": "Gauntlet Serum Multisig",
   "keywords": [
@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@chainlink/gauntlet-core": "0.1.2",
-    "@chainlink-solana-fork/gauntlet-solana": "*",
+    "@chainlink-sol-fork/gauntlet-solana": "*",
     "@project-serum/anchor": "^0.23.0",
     "@solana/web3.js": "^1.31.0"
   }

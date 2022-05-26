@@ -1,5 +1,5 @@
 {
-    "name": "@chainlink-solana-fork/contracts",
+    "name": "@chainlink-sol-fork/contracts",
     "dependencies": {
         "@chainlink/solana-sdk": "../ts",
         "@project-serum/anchor": "^0.23.0",

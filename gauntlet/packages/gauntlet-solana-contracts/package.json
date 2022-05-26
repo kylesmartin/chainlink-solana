@@ -1,5 +1,5 @@
 {
-  "name": "@chainlink-solana-fork/gauntlet-solana-contracts",
+  "name": "@chainlink-sol-fork/gauntlet-solana-contracts",
   "version": "0.0.1",
   "description": "Gauntlet Solana Contracts",
   "keywords": [
@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@chainlink/gauntlet-core": "0.1.2",
-    "@chainlink-solana-fork/gauntlet-solana": "*",
-    "@chainlink-solana-fork/gauntlet-serum-multisig": "*",
+    "@chainlink-sol-fork/gauntlet-solana": "*",
+    "@chainlink-sol-fork/gauntlet-serum-multisig": "*",
     "@ethersproject/keccak256": "^5.5.0",
     "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.31.0",
