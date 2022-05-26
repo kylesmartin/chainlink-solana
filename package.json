@@ -12,9 +12,9 @@
         "gauntlet/packages/gauntlet-solana-contracts",
         "gauntlet/packages/gauntlet-solana",
         "contracts",
+        "ts",
         "pkg/monitoring",
-        "pkg/solana",
-        "ts"
+        "pkg/solana"
       ]
     },
     "dependencies": {
