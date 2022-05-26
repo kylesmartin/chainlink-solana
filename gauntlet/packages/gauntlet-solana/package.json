@@ -1,6 +1,6 @@
 {
   "name": "@chainlink-sol-fork/gauntlet-solana",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Gauntlet Solana",
   "keywords": [
     "typescript",
