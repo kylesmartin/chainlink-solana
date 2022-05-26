@@ -1,6 +1,6 @@
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Program } from '@project-serum/anchor'
-import { provider } from '@chainlink/gauntlet-solana'
+import { provider } from '@chainlink-sol-fork/gauntlet-solana'
 import { BN } from '@chainlink/gauntlet-core/dist/utils'
 
 type NewTransmission = {

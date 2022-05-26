@@ -6,6 +6,9 @@
     "author": "Kyle Martin <kylesmartin19@gmail.com>",
     "license": "MIT",
     "private": true,
+    "scripts": {
+      "release": "cd gauntlet && yarn bundle && cd .. && yarn changeset publish"
+    },
     "workspaces": {
       "packages": [
         "gauntlet/packages/gauntlet-serum-multisig",

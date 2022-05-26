@@ -19,7 +19,7 @@ import { assert } from "chai";
 import { randomBytes, createHash } from "crypto";
 import * as secp256k1 from "secp256k1";
 import { keccak256 } from "ethereum-cryptography/keccak";
-import { Round as OCRRound, OCR2Feed } from "@chainlink/solana-sdk";
+import { Round as OCRRound, OCR2Feed } from "@chainlink-sol-fork/solana-sdk";
 
 // generate a new keypair using `solana-keygen new -o id.json`
 

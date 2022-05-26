@@ -21,6 +21,6 @@
         "typescript": "^4.5.4"
     },
     "scripts": {
-        "test": "yarn upgrade @chainlink/solana-sdk && ts-mocha -t 1000000 tests/*.ts"
+        "test": "yarn upgrade @chainlink-sol-fork/solana-sdk && ts-mocha -t 1000000 tests/*.ts"
     }
 }
