@@ -1,0 +1,22 @@
+{
+    "name": "chainlink-solana",
+    "version": "1.0.0",
+    "description": "A fork of chainlink-solana that uses changesets for versioning",
+    "repository": "https://github.com/kylesmartin/chainlink-solana.git",
+    "author": "Kyle Martin <kylesmartin19@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "workspaces": {
+      "packages": [
+        "gauntlet/packages/gauntlet-serum-multisig",
+        "gauntlet/packages/gauntlet-solana-contracts",
+        "gauntlet/packages/gauntlet-solana",
+        "contracts",
+        "pkg/monitoring",
+        "pkg/solana"
+      ]
+    },
+    "dependencies": {
+      "@changesets/cli": "*"
+    }
+}

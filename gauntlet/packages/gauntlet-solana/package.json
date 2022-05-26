@@ -1,5 +1,5 @@
 {
-  "name": "@chainlink/gauntlet-solana",
+  "name": "@chainlink-solana-fork/gauntlet-solana",
   "version": "0.0.1",
   "description": "Gauntlet Solana",
   "keywords": [
