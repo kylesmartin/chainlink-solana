@@ -1,6 +1,6 @@
 {
-    "name": "@chainlink-sol-fork/solana",
-    "version": "1.0.0",
-    "private": true,
-    "devDependencies": {}
-  }
+  "name": "@chainlink-sol-fork/solana",
+  "version": "1.0.0",
+  "author": "Kyle Martin <kylesmartin19@gmail.com>",
+  "license": "MIT"
+}

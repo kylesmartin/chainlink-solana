@@ -1,5 +1,5 @@
 {
-  "name": "@chainlink/solana-sdk",
+  "name": "@chainlink-sol-fork/solana-sdk",
   "version": "0.2.0",
   "repository": "https://github.com/smartcontractkit/chainlink-solana",
   "license": "MIT",

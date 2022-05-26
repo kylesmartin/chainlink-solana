@@ -1,0 +1,146 @@
+name: e2e_smoke_tests
+on: 
+  workflow_call:
+    inputs:
+      repo_name:
+        required: true
+        description: The name of the github repository
+        default: ${{ github.repository }}
+        type: string
+      ref:
+        required: true
+        description: The git ref to use
+        default: ${{ github.sha }}
+        type: string
+      cl_repo:
+        required: true
+        description: The chainlik ecr repository to use
+        default: public.ecr.aws/z0b1w9r9/chainlink
+        type: string
+      cl_image:
+        required: true
+        description: The chainlink image to use
+        default: develop
+        type: string
+    secrets:
+      QA_AWS_ACCESS_KEY_ID:
+        required: true
+        description: The AWS access key id to use
+      QA_AWS_SECRET_KEY:
+        required: true
+        description: The AWS secret key to use
+      QA_AWS_REGION:
+        required: true
+        description: The AWS region to use
+      QA_AWS_ROLE_TO_ASSUME:
+        required: true
+        description: The AWS role to assume
+      QA_KUBECONFIG:
+        required: true
+        description: The kubernetes configuation to use
+
+jobs:
+  e2e_build_contracts:
+    name: E2E Build Contracts
+    runs-on: ubuntu-latest
+    container:
+      image: projectserum/build:v0.22.1
+      env:
+        RUSTUP_HOME: "/root/.rustup"
+        FORCE_COLOR: 1
+    steps:
+      - uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
+        with:
+          repository: ${{ inputs.repo_name }}
+      - run: echo "$HOME"
+      - run: echo "$PATH"
+      - run: yarn install --frozen-lockfile
+      - name: Generate program_ids
+        run: ./scripts/programs-keys-gen.sh
+      - run: anchor build
+        working-directory: contracts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: target
+          path: contracts/target/deploy
+  e2e_run_smoke_tests:
+    name: E2E Run Smoke Tests
+    runs-on: ubuntu-latest
+    needs: e2e_build_contracts
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
+        with:
+          repository: ${{ inputs.repo_name }}
+          ref: ${{ inputs.ref }}
+      - uses: smartcontractkit/tool-versions-to-env-action@v1.0.7
+        id: tool-versions
+      - name: Setup go ${{ steps.tool-versions.outputs.golang_version }}
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.tool-versions.outputs.golang_version }}
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.QA_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.QA_AWS_SECRET_KEY }}
+          aws-region: ${{ secrets.QA_AWS_REGION }}
+          role-to-assume: ${{ secrets.QA_AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 3600
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.QA_KUBECONFIG }}
+      - name: Cache Vendor Packages
+        uses: actions/cache@v2
+        id: cache-packages
+        with:
+          path: |
+            ~/.cache/go-build
+            ~/go/pkg/mod
+            ~/go/bin
+          key: ${{ runner.os }}-go2-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go2-
+      - name: Download Go Vendor Packages
+        if: steps.cache-packages.outputs.cache-hit != 'true'
+        run: make download
+      - name: Install Ginkgo CLI
+        if: steps.cache-packages.outputs.cache-hit != 'true'
+        run: make install
+      - name: Check for ginkgo ls
+        run: ls ~/go/bin/
+      - name: Download Artifacts
+        uses: actions/download-artifact@master
+        with:
+          name: target
+          path: contracts/target/deploy
+      - name: Echo inputs
+        run: echo ${{ inputs.cl_repo }} ${{ inputs.cl_image }}
+      - name: Env vars
+        run: env
+      - name: Run Tests
+        env:
+          SELECTED_NETWORKS: solana
+          CHAINLINK_IMAGE: ${{ inputs.cl_repo }}
+          CHAINLINK_VERSION: ${{ inputs.cl_image }}
+          CGO_ENABLED: 1
+        run: |
+          PATH=$PATH:$(go env GOPATH)/bin
+          export PATH
+          make test_smoke
+      - name: Publish Test Results
+        uses: mikepenz/action-junit-report@v2
+        if: always()
+        with:
+          report_paths: "./tests-smoke-report.xml"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          check_name: Smoke Test Results
+      - name: Publish Artifacts
+        if: failure()
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: test-logs
+          path: ./tests/e2e/smoke/logs
