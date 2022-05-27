@@ -20,11 +20,22 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Dependencies
-        run: yarn && cd gauntlet && yarn
+        run: yarn
       - name: Create Release Pull Request
         uses: changesets/action@master
+        id: changesets
         with:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Build Gauntlet
+        run: cd gauntlet && yarn && yarn bundle
+      - name: Release Gauntlet Binary
+        if: steps.changesets.outputs.published == 'true'
+        if: startsWith(github.ref, '@chainlink-sol-fork/gauntlet')
+        uses: softprops/action-gh-release@v1
+        with:
+          name: gauntlet-build
+          files: |
+            gauntlet/bin/gauntlet-*

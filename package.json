@@ -7,7 +7,7 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-      "release": "cd gauntlet && yarn bundle && cd .. && yarn changeset publish"
+      "release": "yarn changeset publish"
     },
     "workspaces": {
       "packages": [
