@@ -32,8 +32,9 @@ jobs:
       - name: Build Gauntlet
         run: cd gauntlet && yarn && yarn bundle
       - name: Release Gauntlet Binary
-        if: steps.changesets.outputs.published == 'true'
-        if: startsWith(github.ref, '@chainlink-sol-fork/gauntlet')
+        if: |
+          steps.changesets.outputs.published == 'true' &&
+          startsWith(github.ref, '@chainlink-sol-fork/gauntlet')
         uses: softprops/action-gh-release@v1
         with:
           name: gauntlet-build
