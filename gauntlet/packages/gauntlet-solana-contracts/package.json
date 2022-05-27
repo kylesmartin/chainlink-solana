@@ -1,6 +1,6 @@
 {
   "name": "@chainlink-sol-fork/gauntlet-solana-contracts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Gauntlet Solana Contracts",
   "keywords": [
     "typescript",
