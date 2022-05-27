@@ -1,6 +1,6 @@
 {
   "name": "@chainlink-sol-fork/gauntlet-serum-multisig",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Gauntlet Serum Multisig",
   "keywords": [
     "typescript",
