@@ -1,6 +1,6 @@
 {
     "name": "@chainlink-sol-fork/contracts",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "dependencies": {
         "@chainlink-sol-fork/solana-sdk": "*",
         "@project-serum/anchor": "^0.23.0",
