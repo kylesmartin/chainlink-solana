@@ -4,5 +4,6 @@
     "author": "Kyle Martin <kylesmartin19@gmail.com>",
     "license": "MIT",
     "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {},
+    "private": true
 }

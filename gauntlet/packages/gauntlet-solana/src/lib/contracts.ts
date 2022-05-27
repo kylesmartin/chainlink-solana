@@ -21,7 +21,6 @@ export const registerContracts = <List extends Record<string, string>>(
   listProgramIdEnvNames: Record<List[keyof List], string>,
   artifactsPath: string,
 ) => {
-  console.log("MAJOR ADDITION: new log line")
   type ListValue = List[keyof List]
   // TODO: Get it from GH Releases
   const _getContractCode = (name: ListValue, version: string) => {
