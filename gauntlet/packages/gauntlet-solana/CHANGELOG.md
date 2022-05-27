@@ -1,5 +1,11 @@
 # @chainlink-sol-fork/gauntlet-solana
 
+## 3.1.0
+
+### Minor Changes
+
+- 4252a5d: Random minor bumps
+
 ## 3.0.0
 
 ### Major Changes
