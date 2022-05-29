@@ -1,5 +1,15 @@
 # @chainlink-sol-fork/gauntlet-solana
 
+## 4.2.0
+
+### Minor Changes
+
+- c490fe6: Minor bump to gauntlet-solana
+
+### Patch Changes
+
+- 93c85cf: Patch change to gauntlet-solana
+
 ## 4.1.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @chainlink-sol-fork/gauntlet-serum-multisig
 
+## 1.1.2
+
+### Patch Changes
+
+- c490fe6: Minor bump to gauntlet-solana
+- Updated dependencies [93c85cf]
+- Updated dependencies [c490fe6]
+  - @chainlink-sol-fork/gauntlet-solana@4.2.0
+
 ## 1.1.1
 
 ### Patch Changes
