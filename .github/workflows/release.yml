@@ -42,6 +42,7 @@ jobs:
       - name: Release Gauntlet Binary
         if: steps.changesets.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
+        tag-name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
         with:
           name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
           body: |
