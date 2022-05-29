@@ -1,5 +1,11 @@
 # @chainlink-sol-fork/gauntlet-solana
 
+## 4.0.0
+
+### Major Changes
+
+- 29ff370: Add major update to gauntlet-solana
+
 ## 3.1.0
 
 ### Minor Changes
