@@ -36,9 +36,9 @@ jobs:
       - name: Set Env Variables
         if: steps.changesets.outputs.published == 'true'
         run: |
-          echo "GAUNTLET_SOLANA=${npm info @chainlink-sol-fork/gauntlet-solana version}" >> $GITHUB_ENV
-          echo "GAUNTLET_SOLANA_CONTRACTS=${npm info @chainlink-sol-fork/gauntlet-solana-contracts version}" >> $GITHUB_ENV
-          echo "GAUNTLET_SERUM_MULTISIG=${npm info @chainlink-sol-fork/gauntlet-serum-multisig version}" >> $GITHUB_ENV
+          echo "GAUNTLET_SOLANA=$(npm info @chainlink-sol-fork/gauntlet-solana version)" >> $GITHUB_ENV
+          echo "GAUNTLET_SOLANA_CONTRACTS=$(npm info @chainlink-sol-fork/gauntlet-solana-contracts version)" >> $GITHUB_ENV
+          echo "GAUNTLET_SERUM_MULTISIG=$(npm info @chainlink-sol-fork/gauntlet-serum-multisig version)" >> $GITHUB_ENV
       - name: Release Gauntlet Binary
         if: steps.changesets.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
