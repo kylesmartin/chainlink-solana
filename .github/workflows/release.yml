@@ -43,7 +43,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag-name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
+          tag_name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
           name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
           body: |
             @chainlink-sol-fork/gauntlet-solana@${{env.GAUNTLET_SOLANA}}
