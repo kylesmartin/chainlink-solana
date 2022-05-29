@@ -29,15 +29,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Print Outputs
-        run: echo "${{ steps.changesets.outputs }}"
+      # The following steps only execute on publish
       - name: Build Gauntlet
+        if: steps.changesets.outputs.published == 'true'
         run: cd gauntlet && yarn && yarn bundle
+      - name: Set Env Variables
+        if: steps.changesets.outputs.published == 'true'
+        run: echo "GAUNTLET_SOLANA=${npm info @chainlink-sol-fork/gauntlet-solana version}" >> $GITHUB_ENV
+        run: echo "GAUNTLET_SOLANA_CONTRACTS=${npm info @chainlink-sol-fork/gauntlet-solana-contracts version}" >> $GITHUB_ENV
+        run: echo "GAUNTLET_SERUM_MULTISIG=${npm info @chainlink-sol-fork/gauntlet-serum-multisig version}" >> $GITHUB_ENV
       - name: Release Gauntlet Binary
-        if: |
-          steps.changesets.outputs.published == 'true'
+        if: steps.changesets.outputs.published == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          name: gauntlet-build
+          name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
+          body: |
+            gauntlet
           files: |
             gauntlet/bin/gauntlet-*
