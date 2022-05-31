@@ -1,5 +1,17 @@
 # @chainlink-sol-fork/gauntlet-solana-contracts
 
+## 1.2.0
+
+### Minor Changes
+
+- 15a318a: Minor bump to all gauntlet packages
+
+### Patch Changes
+
+- Updated dependencies [15a318a]
+  - @chainlink-sol-fork/gauntlet-serum-multisig@1.2.0
+  - @chainlink-sol-fork/gauntlet-solana@4.4.0
+
 ## 1.1.2
 
 ### Patch Changes
