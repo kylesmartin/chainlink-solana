@@ -39,15 +39,33 @@ jobs:
           echo "GAUNTLET_SOLANA=$(npm info @chainlink-sol-fork/gauntlet-solana version)" >> $GITHUB_ENV
           echo "GAUNTLET_SOLANA_CONTRACTS=$(npm info @chainlink-sol-fork/gauntlet-solana-contracts version)" >> $GITHUB_ENV
           echo "GAUNTLET_SERUM_MULTISIG=$(npm info @chainlink-sol-fork/gauntlet-serum-multisig version)" >> $GITHUB_ENV
-      - name: Release Gauntlet Binary
+      - name: Upload gauntlet binary to gauntlet-solana release
         if: steps.changesets.outputs.published == 'true'
-        uses: softprops/action-gh-release@v1
+        uses: svenstaro/upload-release-action@v2
         with:
-          tag_name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
-          name: gauntlet-${{env.GAUNTLET_SOLANA}}-${{env.GAUNTLET_SOLANA_CONTRACTS}}-${{env.GAUNTLET_SERUM_MULTISIG}}
-          body: |
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: gauntlet/bin/gauntlet-*
+          file_glob: true
+          tag: |
             @chainlink-sol-fork/gauntlet-solana@${{env.GAUNTLET_SOLANA}}
+          overwrite: false
+      - name: Upload gauntlet binary to gauntlet-solana-contracts release
+        if: steps.changesets.outputs.published == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: gauntlet/bin/gauntlet-*
+          file_glob: true
+          tag: |
             @chainlink-sol-fork/gauntlet-solana-contracts@${{env.GAUNTLET_SOLANA_CONTRACTS}}
-            @chainlink-sol-fork/gauntlet-serum-multisig@${{env.GAUNTLET_SERUM_MULTISIG}}
-          files: |
-            gauntlet/bin/gauntlet-*
+          overwrite: false
+      - name: Upload gauntlet binary to gauntlet-serum-multisig release
+        if: steps.changesets.outputs.published == 'true'
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: gauntlet/bin/gauntlet-*
+          file_glob: true
+          tag: |
+            chainlink-sol-fork/gauntlet-serum-multisig@${{env.GAUNTLET_SERUM_MULTISIG}}
+          overwrite: false

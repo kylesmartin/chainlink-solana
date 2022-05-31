@@ -1,8 +1,8 @@
 {
   "name": "gauntlet",
-  "private": true,
   "version": "0.0.1",
   "description": "Gauntlet Solana",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],

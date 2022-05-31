@@ -2,10 +2,10 @@
     "name": "chainlink-solana",
     "version": "1.0.0",
     "description": "A fork of chainlink-solana that uses changesets for versioning",
+    "private": true,
     "repository": "https://github.com/kylesmartin/chainlink-solana.git",
     "author": "Kyle Martin <kylesmartin19@gmail.com>",
     "license": "MIT",
-    "private": true,
     "scripts": {
       "release": "yarn changeset publish"
     },
