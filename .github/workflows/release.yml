@@ -67,5 +67,5 @@ jobs:
           file: gauntlet/bin/gauntlet-*
           file_glob: true
           tag: |
-            chainlink-sol-fork/gauntlet-serum-multisig@${{env.GAUNTLET_SERUM_MULTISIG}}
+            @chainlink-sol-fork/gauntlet-serum-multisig@${{env.GAUNTLET_SERUM_MULTISIG}}
           overwrite: false
