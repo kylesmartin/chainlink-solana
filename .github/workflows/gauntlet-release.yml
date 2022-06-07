@@ -1,0 +1,27 @@
+name: Gauntlet Release
+
+on:
+  push:
+    tags:
+      - "@chainlink-sol-fork/gauntlet-solana-contracts@[0-9]+.[0-9]+.[0-9]"
+
+jobs:
+  release:
+    name: Release Gauntlet
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
+      - name: Build Gauntlet
+        run: cd gauntlet && yarn && yarn bundle
+      - name: Set Env Variables
+        run: echo "GAUNTLET_SOLANA_CONTRACTS=$(npm info @chainlink-sol-fork/gauntlet-solana-contracts version)" >> $GITHUB_ENV
+      - name: Upload gauntlet binary to gauntlet-solana-contracts release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: gauntlet/bin/gauntlet-*
+          file_glob: true
+          tag: |
+            @chainlink-sol-fork/gauntlet-solana-contracts@${{env.GAUNTLET_SOLANA_CONTRACTS}}
+          overwrite: false
