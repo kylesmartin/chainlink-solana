@@ -1,5 +1,11 @@
 # @chainlink-sol-fork/gauntlet-solana-contracts
 
+## 1.4.0
+
+### Minor Changes
+
+- 7f8a1f3: Minor bump to gauntlet solana contracts
+
 ## 1.3.1
 
 ### Patch Changes
