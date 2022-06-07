@@ -1,13 +1,13 @@
-name: Changesets
+name: Changesets Versioning
 
 on:
   push:
     branches:
-      - develop
+      - "release/*"
 
 jobs:
   release:
-    name: Version and Publish
+    name: Version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -25,8 +25,6 @@ jobs:
       - name: Create Release Pull Request
         uses: changesets/action@master
         id: changesets
-        with:
-          publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
