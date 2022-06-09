@@ -1,0 +1,29 @@
+name: Changesets
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  release:
+    name: Version and Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
+      - name: Install Nix
+        uses: cachix/install-nix-action@v14
+        with:
+          install_url: https://nixos-nix-install-tests.cachix.org/serve/vij683ly7sl95nnhb67bdjjfabclr85m/install
+          install_options: '--tarball-url-prefix https://nixos-nix-install-tests.cachix.org/serve'
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.PAT }}
+      - name: Create Release Pull Request
+        uses: changesets/action@master
+        id: changesets
+        with:
+          publish: nix develop -c yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
