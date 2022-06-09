@@ -8,6 +8,8 @@ on:
 jobs:
   release:
     name: Release Gauntlet
+    env:
+      CI: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
@@ -20,7 +22,10 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Build Gauntlet
-        run: cd gauntlet && nix develop -c yarn bundle
+        run: |
+          cd gauntlet
+          nix develop -c yarn install --frozen-lockfile
+          nix develop -c yarn bundle
       - name: Set Env Variables
         run: echo "GAUNTLET_SOLANA_CONTRACTS=$(npm info @chainlink-sol-fork/gauntlet-solana-contracts version)" >> $GITHUB_ENV
       - name: Upload gauntlet binary to gauntlet-solana-contracts release

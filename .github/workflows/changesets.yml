@@ -3,14 +3,20 @@ name: Changesets
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   release:
-    name: Version and Publish
+    name: Changesets
     runs-on: ubuntu-latest
     steps:
+      # Checkout this repository
       - uses: actions/checkout@f25a3a9f25bd5f4c5d77189cab02ff357b5aedeb # v2.4.1
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+          token: ${{ secrets.PAT }}
+      # Install nix
       - name: Install Nix
         uses: cachix/install-nix-action@v14
         with:
@@ -19,6 +25,10 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.PAT }}
+      # Install dependencies
+      - name: Yarn install
+        run: nix develop -c yarn install --frozen-lockfile
+      # Run changesets
       - name: Create Release Pull Request
         uses: changesets/action@master
         id: changesets
